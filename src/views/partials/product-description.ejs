@@ -1,0 +1,35 @@
+
+
+<div class="product-description-main-container">
+    <div class="product-descrition-main-title flex">
+        <div>
+            <p class="title1">Descripcion</p>
+        </div>
+        <div>
+            <p class="title2">Detalles</p>
+        </div>
+    </div>
+    <div class="product-description-main-description">
+        <p>
+        Producto: <%= product.description %>
+        <br><br />
+        Marca: <%= product.brand %>
+        </p>
+    </div>
+    <div class="product-description-main-details">
+        <% if (product.category=="Clothes") {
+            <p>
+                IMPORTANTE: EN INDUMENTARIA Y CALZADO TODOS LOS TALLES ESTAN
+                EXPRESADOS EN TALLE ARGENTINO, CONSULTAR EQUIVALENCIAS EN LA TABLA
+                DE TALLES.
+            </p>
+        <% } else %>
+        <p>
+            —> GARANTÍA Todos nuestros productos se entregan con certificados
+            de garantía escrito.
+            <br /><br />
+            —> NO ACEPTAMOS CANJES NI TOMAMOS ARTÍCULOS EN FORMA DE PAGO
+        </p>
+        <% } %>
+    </div>
+</div>

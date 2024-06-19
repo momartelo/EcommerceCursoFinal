@@ -1,0 +1,155 @@
+
+<section class="tptnprods populars">
+    <div class="popular-products-title flex">
+        <h4>Articulos de la misma categoria</h4>
+        <div class="popular-products-links">
+            <a class="flex" href="#">
+                <p>Mostrar todos</p>
+                <img src="./img/siguiente-boton.png" alt="" width="16px"
+            /></a>
+        </div>
+    </div>
+    <div class="popular-products">
+        <div class="popular-products-container">
+            <div class="popular-products-list">
+
+
+                <% for (i = 0; i < 4; i++) { %>
+                    <div class="popular-products-product">
+                        <article class="article-product">
+                            <div class="thumbnail-container-product">
+                                <div class="thumbnail-top-product">
+                                    <a href="#">
+                                        <picture>
+                                            <img
+                                            src="<%= dataOrdenada[i].image %>"
+                                            alt=""
+                                        /></picture>
+                                        <button class="wishlist-button-add flex">
+                                            <img
+                                                src="./img/corazon-strong.png"
+                                                alt=""
+                                                width="16px"
+                                            />
+                                        </button>
+                                    </a>
+                                    <% if (dataOrdenada[i].price === dataOrdenada[i].finalPrice) { %>
+                                        <% if (dataOrdenada[i].newProduct) { %>
+                                            <ul class="product-flags-photo">
+                                                <li class="product-flag new">New</li>
+                                            </ul>
+                                 </div>      <!-- esto cierra thumbnail-top-product  -->
+                                        <% } else { %>
+                                            <ul class="product-flags-photo">
+                                            </ul>
+                                 </div>      <!-- esto cierra thumbnail-top-product  -->
+                                        <% } %>
+                                    <% } %>
+                            
+                                    <% if (dataOrdenada[i].discountValue > 0) { %>
+                                        <% if (dataOrdenada[i].newProduct) { %>
+                                            <ul class="product-flags-photo">
+                                                <li class="product-flag discount">-$<%= dataOrdenada[i].discountValue %></li>
+                                                <li class="product-flag new">New</li>
+                                            </ul>
+                                 </div>      <!-- esto cierra thumbnail-top-product  -->
+                                        <% } else { %>
+                                            <ul class="product-flags-photo">
+                                                <li class="product-flag discount">-$<%= dataOrdenada[i].discountValue %></li>
+                                            </ul>
+                                 </div>      <!-- esto cierra thumbnail-top-product  -->
+                                        <% } %>
+                                    <% } %>
+                            
+                                    <% if (dataOrdenada[i].discountPercentage > 0) { %>
+                                        <% if (dataOrdenada[i].newProduct) { %>
+                                            <ul class="product-flags-photo">
+                                                <li class="product-flag discount">-$<%= dataOrdenada[i].discountPercentage %></li>
+                                                <li class="product-flag new">New</li>
+                                            </ul>
+                                 </div>      <!-- esto cierra thumbnail-top-product  -->
+                                        <% } else { %>
+                                            <ul class="product-flags-photo">
+                                                <li class="product-flag discount">-$<%= dataOrdenada[i].discountPercentage %></li>
+                                            </ul>
+                                 </div>      <!-- esto cierra thumbnail-top-product -->
+                                        <% } %>
+                                    <% } %>
+                             </div> <!-- este cierra thumbnail-container-product-->
+                
+                             <div class="product-description-populars">
+                                 <h3>
+                                    <a href="#"><%= dataOrdenada[i].name %></a>
+                                 </h3>
+
+                                 <% if (dataOrdenada[i].price == dataOrdenada[i].finalPrice) { %>
+                                   <div class="product-price">
+                                      <!-- <span class="regular-price"> $750.00 </span> -->
+                                      <span class="price">$ <%= dataOrdenada[i].finalPrice %></span>
+                                   </div>
+                                 <% } else { %>
+                                   <div class="product-price">
+                                      <span class="regular-price">$ <%= dataOrdenada[i].price %> </span>
+                                      <span class="price">$ <%= dataOrdenada[i].finalPrice %></span>
+                                   </div>
+                                 <% } %>
+
+
+                                 <div class="product-review">
+                                    <div class="grade-stars stars-responsive flex2">
+                                      <% if (dataOrdenada[i].comments.length > 0) { %>
+                                        <% dataOrdenada[i].comments.forEach(comment) => { %>
+                                          <% for (i=0; i < comments[i].comment.rating; i++) { %>
+                                            <img src="./img/estrella-dorada-16.png" alt="" width="20px" />
+                                          <% } %>
+                                          <% for (i=0; i < (5-comments[i].comment.rating); i++) { %>
+                                            <img src="./img/estrella-blanca-16.png" alt="" width="20px" />
+                                          <% } %>
+                                        <% } %>
+                                      <% } %> 
+                                      <div class="comments-nb"><%= dataOrdenada[i].comments.lenght %></div>
+                                    </div> <!-- este cierra grade-stars stars-responsive flex2 -->
+                                 </div> <!-- este cierra product-review -->
+                           </div> <!-- este cierra product-description-populars -->
+                           <div class="cart-hidden-container-popular">
+                            <a href="#"
+                              ><img
+                                class="icono-cart-popular"
+                                src="./img/compras-Rojo.png"
+                                alt=""
+                            /></a>
+                         </div> <!-- este cierra cart-hidden-container-popular -->
+                      </article>
+                    </div>
+                 <% } %>
+        </div>
+      </div>
+    </div>
+</section>
+
+<script>
+import {productModel} from "../../models/Product.js"
+    
+const handleData = async (req, res) => {
+    try {
+        const products = await ProductModel.find()
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+}
+
+const data = handleData()
+
+    const dataOriginal = data;
+    const dataAOrdenar = data.slice();
+
+dataAOrdenar.sort((a, b) => {
+    if (b.estrellas !== a.estrellas) {
+        return b.estrellas - a.estrellas;
+    } else {
+    return b.comentarios - a.comentarios;
+    }
+});
+
+const dataOrdenada = dataAOrdenar;
+</script>

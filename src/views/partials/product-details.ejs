@@ -1,0 +1,275 @@
+var cantidadProductos = 1;
+
+
+<div class="product-details-container flex">
+    <div class="product-details-photos flex">
+        <% for (let i=0; product.image.length; i++){ %>
+            <div class="photo1 flex">
+                <a href="#">
+                    <img src="<%= product.image[i] %>" alt=""/>
+                </a>
+            </div>
+        <% } %>
+          <% if (product.price === product.finalPrice) { %>
+            <% if (product.newProduct) { %>
+                <ul class="product-flags-photo">
+                    <li class="product-flag new">New</li>
+                </ul>
+                </div>      <!-- esto cierra product-details-photos flex  -->
+            <% } else { %>
+                <ul class="product-flags-photo">
+                </ul>
+                </div>      <!-- esto cierra product-details-photos flex  -->
+            <% } %>
+          <% } %>
+
+          <% if (product.discountValue > 0) { %>
+            <% if (product.newProduct) { %>
+                <ul class="product-flags-photo">
+                  <li class="product-flag discount">-$<%= product.discountValue %></li>
+                  <li class="product-flag new">New</li>
+                </ul>
+                </div>      <!-- esto cierra product-details-photos flex  -->
+            <% } else { %>
+                <ul class="product-flags-photo">
+                  <li class="product-flag discount">-$<%= product.discountValue %></li>
+                </ul>
+                </div>      <!-- esto cierra product-details-photos flex  -->
+            <% } %>
+          <% } %>
+
+          <% if (product.discountPercentage > 0) { %>
+            <% if (product.newProduct) { %>
+                <ul class="product-flags-photo">
+                  <li class="product-flag discount">-$<%= product.discountPercentage %></li>
+                  <li class="product-flag new">New</li>
+                </ul>
+                </div>      <!-- esto cierra product-details-photos flex  -->
+            <% } else { %>
+                <ul class="product-flags-photo">
+                  <li class="product-flag discount">-$<%= product.discountPercentage %></li>
+                </ul>
+                </div>      <!-- esto cierra product-details-photos flex  -->
+            <% } %>
+          <% } %>
+
+    <div class="product-details-description">
+      <h2><%= product.name %></h2>
+      <br>
+      <p><%= product.description %></p>
+
+      <div class="product-details-container-titles flex">
+
+        <div class="product-details-description-titles">
+          <p>Marca:</p>
+          <p>Codigo:</p>
+
+          <% if (product.category == "Clothes" || product.category == "clothes") { %>
+            <p>Talle</p>
+            <p>Color</p>
+          <% } %>
+
+          <% if (product.category == "Electronics" || product.category == "electronics") { %>
+            <p>Tamaño</p>
+            <p>Color</p>
+          <% } %>
+
+          <% if ((product.category !== "Electronics" || product.category !== "electronics") && (product.category !== "Clothes" || product.category !== "clothes")) { %>
+            <p> </p>
+            <p> </p>
+          <% } %>
+        </div>    <!-- esto cierra product-details-description-titles  -->
+
+        <div class="product-details-description-descriptions">
+          <p><%= product.brand %></p>
+          <p><%= product.code %></p>
+
+          <div class="input-radio-size">
+            <% for (let i=0; product.sizes.length; i++) { %>
+              <button><%= product.sizes[i] %></button>
+            <% } %>
+          </div>
+
+          <% if (product.colors.length>0) { %>
+            <% for (let i=0; product.colors.length; i++) { %>
+              <div class="input-radio-color flex">
+                <button class="button-<%= product.colors[i] >%">
+                  <img src="./img/cheque.png" alt="" />
+                </button>
+              </div>
+            <% } %>
+          <% } else { %>
+            <div class="input-radio-color flex">
+            </div>
+          <% } %>
+        </div>     <!-- esto cierra product-details-description-descriptions  -->
+      </div> <!-- product-details-container-titles flex -->
+
+      <div class="product-details-containes-prizes">
+          <% if (product.discountValue > 0 || product.discountPercentage > 0) { %>
+          <div class="product-details-prizes flex">
+            <p class="regular-price"><%= product.price %></p>
+            <div>
+              <p class="price"><%= product.finalPrice %></p>
+              <% if (product.discountValue > 0) { %>
+              <p class="price-save">Save $<%= product.discountValue %></p>
+              <% } else { %>
+              <p class="price-save">Save %<%= product.discountPercentage %></p>
+              <% } %>
+            </div>
+          </div>
+          <% } else %>
+          <div class="product-details-prizes flex">
+            <div>
+              <p class="price"><%= product.finalPrice %></p>
+            </div>
+          </div>
+          <% } %>
+
+        <div class="tptncountdown flex">
+          <div class="countdown-container flex">
+            <div class="countdown-icon">
+              <img
+                src="./img/reloj-24.png"
+                alt=""
+                width="24px"
+                height="24px"
+              />
+            </div>
+
+            <% if (product.differenceDates.segundos > 0 || product.differenceDates.minutos > 0 || product.differenceDates.horas > 0 || product.differenceDates.dias > 0) { %>
+              <div id="countdown" class="countdown-time flex">
+              </div>
+            <% } %>
+          </div>
+        </div>
+
+
+        <div class="product-details-cart-title">
+          <p>Cantidad</p>
+          <div class="product-details-cart flex">
+            <div class="product-details-cart-cant flex">
+              <input type="number" id="cantidad" value="<%= cantidadProductos %>" />
+              <button class="btn-subir" onclick="subirCantidad()"><i class="fas fa-arrow-up"></i></button>
+              <button class="btn-bajar" onclick="bajarCantidad()"><i class="fas fa-arrow-down"></i></button>
+            </div>
+            <div class="cart-hidden-container flex">
+              <a class="flex" href="#"
+                ><img
+                  class="icono-cart"
+                  src="./img/compras-Rojo.png"
+                  alt=""
+                />
+              </a>
+            </div>
+            <a class="flex" href="#">
+              <button class="wishlist-button-product flex">
+                <img src="./img/corazon-strong.png" alt="" width="16px" />
+              </button>
+            </a>
+          </div>
+        </div>
+        <div class="product-details-share-container">
+          <div class="product-details-share flex">
+            <p>Compartir</p>
+            <img src="./img/Facebook2.png" alt="" width="24px" />
+            <img src="./img/x.png" alt="" width="24px" />
+            <img src="./img/whatsapp.png" alt="" width="24px" />
+          </div>
+          <div class="product-details-politics flex">
+            <div>
+              <img src="./img/bloquear.png" alt="" width="36px" />
+              <p>Política de devolución sencilla y sin preguntas</p>
+            </div>
+            <div>
+              <img src="./img/camion1.png" alt="" width="36px" />
+              <p>
+                Haga su pedido antes de las 6 p. m. para recibir entrega
+                urgente
+              </p>
+            </div>
+            <div>
+              <img
+                src="./img/entrega-de-paquetes.png"
+                alt=""
+                width="36px"
+              />
+              <p>
+                Ofrecemos productos cuidadosamente seleccionados de la
+                mejor calidad.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+    //-------------------------Countdown1-----------------------------//
+
+// Definir la fecha de destino del countdown (por ejemplo, 1 de enero de 2025 a las 00:00:00)
+const endDate = new Date(product.discountExpiryDate).getTime();
+
+// Actualizar el contador cada segundo
+const countdownInterval = setInterval(() => {
+  // Obtener la fecha y hora actual
+  const now = new Date().getTime();
+
+  // Calcular la diferencia entre la fecha de destino y la fecha actual
+  const distance = endDate - now;
+
+  // Calcular los días, horas, minutos y segundos restantes
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(
+    (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Mostrar el contador en el elemento HTML con id "countdown"
+  const countdownElement = document.getElementById("countdown");
+  countdownElement.innerHTML = `
+      <div class="countdown-days timer flex">
+        <span><strong>${days}</strong></span>
+        <span>Dias</span>
+      </div>
+      <div class="countdown-hours timer flex">
+        <span><strong>${hours}</strong></span>
+        <span>Hrs</span>
+      </div>
+      <div class="countdown-minutes timer flex">
+      <span><strong>${minutes}</strong></span>
+      <span>Mins</span>
+      </div>
+      <div class="countdown-seconds timer flex">
+      <span><strong>${seconds}</strong></span>
+      <span>Segs</span>
+      </div>
+        `;
+
+  // Si la cuenta regresiva ha terminado, limpiar el intervalo
+  if (distance <= 0) {
+    clearInterval(countdownInterval);
+    countdownElement.innerHTML = "¡El countdown ha terminado!";
+  }
+}, 1000); // Actualizar cada segundo
+
+function subirCantidad() {
+  cantidadProductos++;
+  document.getElementById("cantidad").value = cantidadProductos;
+}
+
+function bajarCantidad() {
+  if (cantidadProductos > 0) {
+    cantidadProductos--;
+    document.getElementById("cantidad").value = cantidadProductos;
+  }
+}
+
+
+  </script>
+
+    <%-include("partials/footer")%>

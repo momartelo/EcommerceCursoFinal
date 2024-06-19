@@ -1,0 +1,44 @@
+<div class="product-comments-container">
+    <div class="flex">
+        <img src="./img/editar1-negro.png" alt="" width="24px" />
+        <p>Comentarios</p>
+    </div>
+
+    <% if (product.comments.length > 0) { %>
+        <% product.comments.forEach(comment => { %>
+            <div class="product-comment flex">
+                <div class="product-comment-data flex">
+                    <div class="grade-stars-comments flex">
+                        <% for (i=0; i < comment.rating.length; i++) { %>
+                            <img src="./img/estrella-dorada-16.png" alt="" width="20px" />
+                        <% } %>
+                        <% for (i=0; i < 5-comment.rating.length; i++) { %>
+                            <img src="./img/estrella-blanca-16.png" alt="" width="20px" />
+                        <% } %>
+                    </div>
+                    <p><%= comment.date %></p>
+                    <p><%= comment.author %></p>
+                </div>
+                <div class="product-comment-description">
+                    <p><%= comment.comment %></p>
+                    <div class="product-comment-icons flex">
+                        <a href=""
+                            ><img
+                            src="./img/pulgares-hacia-arriba.png"
+                            alt=""
+                            width="20px"
+                        /></a>
+                        <p>0</p>
+                        <a href=""
+                            ><img src="./img/pulgar-hacia-abajo.png" alt="" width="20px"
+                        /></a>
+                        <p>0</p>
+                        <a href=""
+                            ><img src="./img/banderas.png" alt="" width="20px"
+                        /></a>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    <% } %>
+</div>

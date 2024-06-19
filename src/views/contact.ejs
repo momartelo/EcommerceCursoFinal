@@ -1,0 +1,123 @@
+<%-include("partials/head")  %>
+<link rel="stylesheet" href="/css/styles-contact.css" />
+</head>
+<body>
+
+    <%-include("partials/header")%>
+
+    <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3144.386100390991!2d-57.56413422325845!3d-37.99145374421573!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9584d953b37bc509%3A0x82eb9cfffdbb93b5!2sOlaz%C3%A1bal%201654%2C%20B7600CBB%20Mar%20del%20Plata%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1715914473231!5m2!1ses-419!2sar"
+    width="90%"
+    max-width="1320"
+    height="400"
+    style="border:0"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+  ></iframe>
+  <section class="section-wrapper flex">
+    <div class="information-container flex">
+        <div class="information-social flex">
+            <h2>Redes Sociales</h2>
+            <div class="information-social-logos flex">
+                <ul class="flex">
+                    <li><a href="#" class="flex"><img src="./img/facebook-app-round-white-icon.png" alt="" /></a></li>
+                    <li><a href="#" class="flex"><img src="./img/x-social-media-white-icon.png" alt="" /></a></li>
+                    <li><a href="#" class="flex"><img src="./img/whatsapp-white-icon.png" alt="" /></a></li>
+                    <li><a href="#" class="flex"><img src="./img/linkedin-app-white-icon.png" alt="" /></a></li>
+                    <li><a href="#" class="flex"><img src="./img/instagram-white-icon.png" alt="" /></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="contact-info-container flex">
+            <h2>Informacion de Contacto</h2>
+            <p>MegaShop</p>
+            <br />
+            <p>Lunes a viernes: de 9:00 a 18:00</p>
+            <p>Sábados: de 10:00 a 14:00</p>
+            <br />
+            <p>Olazabal 1654 - C.P.: 7600</p>
+            <p>Mar del Plata</p>
+            <p>Provincia de Buenos Aires</p>
+            <p>Republica Argentina</p>
+            <br />
+            <p>0800 - 555 - 1697</p>
+            <br />
+            <p>info@megashop.com.ar</p>
+        </div>
+    </div>
+    <div class="form-container flex">
+        <div class="form-title flex">
+            <h2>Formulario de Contacto</h2>
+            <p>¡No dudes en contactarnos! <br /> Nuestro equipo de atención al cliente estará encantado de ayudarte.</p>
+        </div>
+        <div class="form-fields flex">
+            <form id="contactForm">
+                <div class="form-name flex">
+                    <label for="name">* Nombre :</label>
+                    <input type="text" maxlength="100" name="name" id="name" required="required" placeholder="Escribe tu nombre:" />
+                </div>
+                <div class="form-email flex">
+                    <label for="email">* Email :</label>
+                    <input type="email" name="email" id="email" required="required" placeholder="Escribe tu email:" />
+                </div>
+                <div class="form-phone flex">
+                    <label for="phone">Telefono :</label>
+                    <input type="tel" maxlength="15" pattern="[0-9]{1,15}" title="Solo se permiten numeros" name="phone" id="phone" placeholder="Escribe tu telefono:" />
+                </div>
+                <div class="form-subject flex">
+                    <label for="subject">* Asunto :</label>
+                    <input type="text" maxlength="100" name="subject" id="subject" required="required" placeholder="Escribe el asunto:" />
+                </div>
+                <div class="form-message flex">
+                    <label for="message">* Mensaje :</label>
+                    <textarea name="message" id="message" cols="30" rows="10" required="required" placeholder="Deja aca tu mensaje..."></textarea>
+                </div>
+                <button type="submit" name="enviar_formulario" id="button_enviar">Enviar</button>
+                <p>* los campos son obligatorios</p>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Previene el envío por defecto del formulario
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+
+        fetch('http://localhost:3020/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                phone: phone,
+                subject: subject,
+                message: message
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            if (data.errors) {
+                alert('Hubo un error al enviar el mensaje');
+            } else {
+                alert('Mensaje enviado exitosamente');
+                document.getElementById('contactForm').reset();
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un error al enviar el mensaje');
+        });
+    });
+</script>
+
+    <%-include("partials/footer")%>

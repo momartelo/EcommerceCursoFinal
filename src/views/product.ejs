@@ -1,0 +1,227 @@
+<%-include("partials/head")  %>
+<link rel="stylesheet" href="/css/styles.body.product.css" />
+</head>
+<body>
+
+    <%-include("partials/header")%>
+
+    <section class="section-wrapper">
+        <div class="product-container">
+          <!-- ------------path------------------ -->
+          <div class="product-path">
+                <p>Home / <%= product.category[0] %> / <%= product.name %></p>
+          </div>
+          <!-- ------------detalles------------------ -->
+          <div class="product-details-container flex">
+          </div>
+
+          <div class="product-details-description">
+                <h2><%= product.name %></h2>
+                <br>
+                <p><%= product.description %></p>
+                <div class="product-details-container-titles flex">
+                <div class="product-details-description-titles">
+                    <p>Marca:</p>
+                    <p>Codigo:</p>
+                    <p>Talle</p>
+                    <p>Color</p>
+                </div>
+                <div class="product-details-description-descriptions">
+                    <p><%= product.brand %></p>
+                    <p><%= product.code %></p>
+                  <% if (product.sizes.length > 0) { %>
+                    <div class="input-radio-size">
+                    <% product.sizes.forEach(size => { %>
+                        <button><%= size %></button>
+                    <% }) %>
+                    </div>
+                <% } %>
+                <% if (product.colors.length > 0) { %>
+                <div class="input-radio-color flex">
+                    <% product.colors.forEach(color => { %>
+                        <button class="button-<%= color %>">
+                        <img src="./img/cheque.png" alt="" />
+                        </button>
+                    <% }) %>
+                </div>
+                <% } %>
+                </div>
+                </div>
+              <div class="product-details-containes-prizes">
+                <% if (product.discountValue > 0 || product.discountPercentage > 0) { %>
+                <div class="product-details-prizes flex">
+                  <p class="regular-price"><%= product.price %></p>
+                  <div>
+                    <p class="price"><%= product.finalPrice %></p>
+                    <% if (product.discountValue > 0) { %>
+                    <p class="price-save">Save $<%= product.discountValue %></p>
+                    <% } else { %>
+                    <p class="price-save">Save %<%= product.discountPercentage %></p>
+                    <% } %>
+                  </div>
+                </div>
+                <% } else %>
+                <div class="product-details-prizes flex">
+                  <div>
+                    <p class="price"><%= product.finalPrice %></p>
+                  </div>
+                </div>
+                <% } %>
+                <div class="tptncountdown flex">
+                  <div class="countdown-container flex">
+                    <div class="countdown-icon">
+                      <img
+                        src="./img/reloj-24.png"
+                        alt=""
+                        width="24px"
+                        height="24px"
+                      />
+                    </div>
+                    <div class="countdown-clock">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="product-details-cart-title">
+                  <p>Cantidad</p>
+                  <div class="product-details-cart flex">
+                    <div class="product-details-cart-cant flex">
+                      <p>1</p>
+                      <div class="flex">
+                        <img src="./img/flecha-arriba.png" alt="" width="16px" />
+                        <img
+                          src="./img/flecha-hacia-abajo.png"
+                          alt=""
+                          width="16px"
+                        />
+                      </div>
+                    </div>
+                    <div class="cart-hidden-container flex">
+                      <a class="flex" href="#"
+                        ><img
+                          class="icono-cart"
+                          src="./img/compras-Rojo.png"
+                          alt=""
+                        />
+                      </a>
+                    </div>
+                    <a class="flex" href="#">
+                      <button class="wishlist-button-product flex">
+                        <img src="./img/corazon-strong.png" alt="" width="16px" />
+                      </button>
+                    </a>
+                  </div>
+                </div>
+                <div class="product-details-share-container">
+                  <div class="product-details-share flex">
+                    <p>Compartir</p>
+                    <img src="./img/Facebook2.png" alt="" width="24px" />
+                    <img src="./img/x.png" alt="" width="24px" />
+                    <img src="./img/whatsapp.png" alt="" width="24px" />
+                  </div>
+                  <div class="product-details-politics flex">
+                    <div>
+                      <img src="./img/bloquear.png" alt="" width="36px" />
+                      <p>Política de devolución sencilla y sin preguntas</p>
+                    </div>
+                    <div>
+                      <img src="./img/camion1.png" alt="" width="36px" />
+                      <p>
+                        Haga su pedido antes de las 6 p. m. para recibir entrega
+                        urgente
+                      </p>
+                    </div>
+                    <div>
+                      <img
+                        src="./img/entrega-de-paquetes.png"
+                        alt=""
+                        width="36px"
+                      />
+                      <p>
+                        Ofrecemos productos cuidadosamente seleccionados de la
+                        mejor calidad.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+          <div class="product-description-main-container">
+            <div class="product-descrition-main-title flex">
+              <div>
+                <p class="title1">Descripcion</p>
+              </div>
+              <div>
+                <p class="title2">Detalles</p>
+              </div>
+            </div>
+            <div class="product-description-main-description">
+              <p>
+                Producto: <%= product.name %>
+                <br><br />
+                Marca: <%= product.brand %>
+                <br><br />
+                <%= product.description %>
+              </p>
+            </div>
+            <div class="product-description-main-details">
+              <p>
+                IMPORTANTE: EN INDUMENTARIA Y CALZADO TODOS LOS TALLES ESTAN
+                EXPRESADOS EN TALLE ARGENTINO, CONSULTAR EQUIVALENCIAS EN LA TABLA
+                DE TALLES.
+              </p>
+            </div>
+          </div>
+
+          <div class="product-comments-container">
+            <div class="flex">
+              <img src="./img/editar1-negro.png" alt="" width="24px" />
+              <p>Comentarios</p>
+            </div>
+
+            <% if (product.comments.length > 0) { %>
+              <% product.comments.forEach(comment) => { %>
+                <div class="product-comment flex">
+                  <div class="product-comment-data flex">
+                    <div class="grade-stars-comments flex">
+                      <% for (i=0; i < comment.rating.length; i++) { %>
+                        <img src="./img/estrella-dorada-16.png" alt="" width="20px" />
+                      <% } %>
+                      <% for (i=0; i < 5-comment.rating.length; i++) { %>
+                        <img src="./img/estrella-blanca-16.png" alt="" width="20px" />
+                      <% } %>
+                    </div>
+                    <p><%= comment.date %></p>
+                    <p><%= comment.author %></p>
+                  </div>
+                  <div class="product-comment-description">
+                    <p><%= comment.comment %></p>
+                    <div class="product-comment-icons flex">
+                      <a href=""
+                        ><img
+                          src="./img/pulgares-hacia-arriba.png"
+                          alt=""
+                          width="20px"
+                      /></a>
+                      <p>0</p>
+                      <a href=""
+                        ><img src="./img/pulgar-hacia-abajo.png" alt="" width="20px"
+                      /></a>
+                      <p>0</p>
+                      <a href=""
+                        ><img src="./img/banderas.png" alt="" width="20px"
+                      /></a>
+                    </div>
+                  </div>
+                </div>
+              <% } %>
+            <% } %>
+          </div>
+          
+        </div>
+    </section>
+
+<script src="../functions/funtions.js"></script>
+
+    <%-include("partials/footer")%>
